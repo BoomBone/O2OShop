@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.widget.Toast
 import com.amap.api.location.AMapLocation
@@ -168,21 +169,28 @@ class MainActivity : AppCompatActivity(), AMapLocationListener, NearbySearch.Nea
             Log.e("main", "request返回")
             if (nearbySearchResult?.nearbyInfoList != null
                     && nearbySearchResult.nearbyInfoList.size > 0) {
+                initRecyclerView(nearbySearchResult.nearbyInfoList)
+                mUserSize.text = "附近共有${nearbySearchResult.nearbyInfoList.size}个用户"
                 for (nearbyInfo in nearbySearchResult.nearbyInfoList) {
                     val a = "周边搜索结果为size=${nearbySearchResult.nearbyInfoList.size},userId=${nearbyInfo.userID}," +
                             "距离=${nearbyInfo.distance},驾驶距离=${nearbyInfo.drivingDistance},时间=${nearbyInfo.timeStamp},点=${nearbyInfo.point}"
                     Log.e("main2", a)
                 }
-                val nearbyInfo = nearbySearchResult.nearbyInfoList[0]
-                mResultText.text = "周边搜索结果为size${nearbySearchResult.nearbyInfoList.size}first：${nearbyInfo.userID}," +
-                        "${nearbyInfo.distance},${nearbyInfo.drivingDistance},${nearbyInfo.timeStamp},${nearbyInfo.point}"
             } else {
-                mResultText.text = "周边搜索结果为空";
+                val a = "周边搜索结果为空";
+                Log.e("main2", a)
             }
         } else {
-            mResultText.text = "周边搜索出现异常，异常码为：$resultCode"
+            val a = "周边搜索出现异常，异常码为：$resultCode"
+            Log.e("main2", a)
         }
     }
+
+    private fun initRecyclerView(nearbyInfoList: MutableList<NearbyInfo>) {
+        mNeatRv.layoutManager = LinearLayoutManager(this)
+        mNeatRv.adapter = NearAdapter(R.layout.position_item, nearbyInfoList)
+    }
+
 
     /*-------------------------NearByListener-------------------------------------------*/
 

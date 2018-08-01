@@ -48,4 +48,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation files('libs/AMap3DMap_6.3.1_AMapSearch_6.1.0_AMapLocation_4.1.0_20180726.jar')
+    //Brvah
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.38'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
 }
